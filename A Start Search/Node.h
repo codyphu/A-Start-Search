@@ -7,17 +7,19 @@ class Node
 {
 public:
 	Node* parent;
-	Node* next;
+	Node* child1;
+	Node* child2;
+	Node* child3;
+	Node* child4;
 	int h; // heuristic
 	int g; // pathcost
 	int* data; //array of 9 to represent current state of the 8 puzzle
-	Node(int* arr, int gp);
 	Node(int* arr, int he, int gp); //constructor using input array as start state
 
 
-	int getBlank(); //returns array location of 0
-
-	void print();// prints out data and f (f=g+h)
+	int getBlank() const; //returns array location of 0
+	int getF() const; //finds the value of f(f=g+h)
+	void print() const;// prints out data and f (f=g+h)
 
 };
 
