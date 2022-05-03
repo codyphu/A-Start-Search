@@ -1,4 +1,6 @@
 #include "Node.h"
+#include <iostream>
+#include <vector>
 
 Node::Node(vector<int> arr, int he, int gp) { //constructor using input array as start state
 	parent = nullptr;
@@ -12,13 +14,16 @@ Node::Node(vector<int> arr, int he, int gp) { //constructor using input array as
 }
 
 Node::Node(Node* curr, vector<int> arr) {
-	Node* next = new Node(arr, curr->h,curr->g);
+	Node* next = new Node(arr, curr->h,curr->g+curr->h+1);
 	next->parent = curr;
 }
 
-vector<int> swap(vector<int> arr, int x, int y) {
+vector<int> Node::swap(vector<int> arr, int x, int y) {
 	vector<int> n; //new vector
-	n = arr;
+	for (int i = 0; i < 9; i++) {
+		n.push_back(arr[i]);
+	}
+
 	n[y] = n[x];
 	n[x] = 0;
 	return n;
@@ -45,7 +50,7 @@ int Node::getF() const {
 
 void Node::print() const {// prints out data and f (f=g+h)
 
-	cout << "f=" << this->getF() << "h=" << h << "g=" << g << endl;
+	cout << "f=" << this->getF() << " h=" << h << " g=" << g << endl;
 	for (int i = 0; i < 9; i++) {
 		cout << data[i] << " ";
 		if (i + 1 % 3 == 0) {

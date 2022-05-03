@@ -4,8 +4,8 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-class Node
-{
+
+class Node{
 public:
 	Node* parent;
 	Node* child1;// 4 children per node max bc of only 4 maximum operations
@@ -23,7 +23,6 @@ public:
 	int getBlank() const; //returns array location of 0
 	int getF() const; //finds the value of f(f=g+h)
 	void print() const;// prints out data and f (f=g+h)
-	
 
 };
 
