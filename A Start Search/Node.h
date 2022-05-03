@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <math.h>
 using namespace std;
 
 struct Node{
@@ -33,12 +34,15 @@ public:
     vector<int> goal{ 1, 2, 3, 4, 5, 6, 7, 8, 0 };
     vector<vector<int>> copys;//prevent repeating copys from being expanded and looping
     priority_queue<Node*, vector<Node*>, compareF> search;
+
     Tree(Node* start);
+
     bool checkGoal();
-
-
+    int heuristic();
     int getZero(Node* arr);
-    int heuristic(Node* arr);
+    bool checkDuplicate(vector<int> arr);//checks for duplicates returns true if arr is a duplicate array
+    int getDepth();
+    int getY(int a);
 
     //operators
     Node* goUp();
