@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A Start Search", "A Start Search\A Start Search.vcxproj", "{1C10499A-0612-4831-8721-8732FC457F63}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A Star Search", "A Start Search\A Start Search.vcxproj", "{1C10499A-0612-4831-8721-8732FC457F63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
