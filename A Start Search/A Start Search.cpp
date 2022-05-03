@@ -12,13 +12,40 @@ struct compareF{
 
 class Tree {
     Node* current;
-    int nodes;
+    Node* root; //initial node/input
+    int nodes;// nodes expanded
+    vector<int> goal{ 1,2,3,4,5,6,7,8,0 };
+    vector<int> test1{ 1,2,3,4,5,6,7,0,8 };
+    vector<vector<int>> copys;//prevent repeating copys from being expanded and looping
+    //operators
+
+
+    Tree(Node* start) {
+        root = start;
+        current = start;
+        nodes = 1;
+    }
+    void solve8puzzle() {
+    }
+
+    Node* goUp() {
+        Node* next = new Node(current, current->swap(current->data, current->getBlank() - 3, current->getBlank()));
+    }
+    Node* goDown() {
+        Node* next = new Node(current, current->swap(current->data, current->getBlank() + 3, current->getBlank()));
+    }
+    Node* goLeft() {
+        Node* next = new Node(current, current->swap(current->data, current->getBlank() - 1, current->getBlank()));
+    }
+    Node* goRight() {
+        Node* next = new Node(current, current->swap(current->data, current->getBlank() + 1, current->getBlank()));
+    }
 
 private:
-    //priority_queue<Node*,vector<Node*>,compareF>;
+    priority_queue<Node*,vector<Node*>,compareF> search;
 };
-int goal[9] = { 1,2,3,4,5,6,7,8,0 };
-int test1[9]= { 1,2,3,4,5,6,7,0,8 };
+
+
 
 int main()
 {   

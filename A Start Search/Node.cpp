@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node(int* arr, int he, int gp) { //constructor using input array as start state
+Node::Node(vector<int> arr, int he, int gp) { //constructor using input array as start state
 	parent = nullptr;
 	child1 = nullptr;
 	child2 = nullptr;
@@ -9,7 +9,19 @@ Node::Node(int* arr, int he, int gp) { //constructor using input array as start 
 	data = arr;
 	h = he;
 	g = gp;
+}
 
+Node::Node(Node* curr, vector<int> arr) {
+	Node* next = new Node(arr, curr->h,curr->g);
+	next->parent = curr;
+}
+
+vector<int> swap(vector<int> arr, int x, int y) {
+	vector<int> n; //new vector
+	n = arr;
+	n[y] = n[x];
+	n[x] = 0;
+	return n;
 }
 
 int Node::getBlank() const { //returns array location of 0
@@ -19,6 +31,7 @@ int Node::getBlank() const { //returns array location of 0
 	}
 	return 0;
 }
+
 int Node::getF() const {
 	int k = 0;
 	if (h == 1) { //misplaced tile heuristic
@@ -29,6 +42,7 @@ int Node::getF() const {
 	}
 	return g + k;
 }
+
 void Node::print() const {// prints out data and f (f=g+h)
 
 	cout << "f=" << this->getF() << "h=" << h << "g=" << g << endl;
