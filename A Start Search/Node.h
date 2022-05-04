@@ -47,6 +47,8 @@ public:
     bool checkDuplicate(vector<int> arr);//checks for duplicates returns true if arr is a duplicate array
     int getY(int a);
     int getX(int a);
+    void backtrackFromGoal();//backtracks from goal node then outputs the data from the goal state then the operator from the next set of data
+    void backtrackPrint();
 
     //operators
     Node* goUp();

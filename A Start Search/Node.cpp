@@ -100,6 +100,7 @@ Node* Tree::goUp() {
     }
     copys.push_back(temp);
     Node* next = new Node;
+    next->parent = current;
     next->g = current->g + 1;
     next->data = temp;
     next->h = heuristic(next);
@@ -114,6 +115,7 @@ Node* Tree::goDown() {
     }
     copys.push_back(temp);
     Node* next = new Node;
+    next->parent = current;
     next->g = current->g + 1;
     next->data = temp;
     next->h = heuristic(next);
@@ -128,6 +130,7 @@ Node* Tree::goLeft() {
     }
     copys.push_back(temp);
     Node* next = new Node;
+    next->parent = current;
     next->g = current->g + 1;
     next->data = temp;
     next->h = heuristic(next);
@@ -142,6 +145,7 @@ Node* Tree::goRight() {
     }
     copys.push_back(temp);
     Node* next = new Node;
+    next->parent = current;
     next->g = current->g + 1;
     next->data = temp;
     next->h = heuristic(next);
@@ -188,6 +192,37 @@ void Tree::solve8puzzle() {
     goalNode = current;
 
     cout << "Goal Reached!!!"<<endl<< "This search expanded " << nodes <<" total nodes"<< endl;
-    cout << "The max number of nodes in queue is "  << search.size() << endl;
+    cout << "The max number of nodes in queue is "  << search.size() + 1 << endl;
     cout << "The depth of the goal node is " << current->g + 1 << endl;
+}
+
+void Tree::backtrackFromGoal() {
+    current = goalNode;
+    while (current->parent != nullptr) {
+        backtrackPrint();
+        if (getZero(current) - getZero(current->parent)==1) {
+            cout << "Right Operator" << endl << endl;
+        }
+        else if (getZero(current) - getZero(current->parent) == -1) {
+            cout << "Left Operator" << endl<<endl;
+        }
+        else if (getZero(current) - getZero(current->parent) == 3) {
+            cout << "Down Operator" << endl << endl;
+        }
+        else if (getZero(current) - getZero(current->parent) == -3) {
+            cout << "Up Operator" << endl << endl;
+        }
+        current = current->parent;
+    }
+    backtrackPrint();
+    
+}
+void Tree::backtrackPrint(){
+    for (int i = 0; i < 9; i++) {
+        cout << current->data[i] << " ";
+        if ((i + 1) % 3 == 0) {
+            cout << endl;
+        }
+    }
+    cout << endl;
 }
