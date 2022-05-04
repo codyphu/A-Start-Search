@@ -56,7 +56,36 @@ double Tree::heuristic(Node* next) {
         return heur;
     }
     if (newh == 2) {
-        return sqrt(pow(((getX(getZero(next)))-3),2) + pow((getY(getZero(next))-3),2));
+        for (int i = 0; i < 9; i++) {
+            if (next->data[i] == 0) {
+                heur+=sqrt(pow(((getX(i)) - 3), 2) + pow((getY(i) - 3), 2));
+            }
+            else if (next->data[i] == 1) {
+                heur += sqrt(pow(((getX(i)) - 1), 2) + pow((getY(i) - 1), 2));
+            }
+            else if (next->data[i] == 2) {
+                heur += sqrt(pow(((getX(i)) - 2), 2) + pow((getY(i) - 1), 2));
+            }
+            else if (next->data[i] == 3) {
+                heur += sqrt(pow(((getX(i)) - 3), 2) + pow((getY(i) - 1), 2));
+            }
+            else if (next->data[i] == 4) {
+                heur += sqrt(pow(((getX(i)) - 1), 2) + pow((getY(i) - 2), 2));
+            }
+            else if (next->data[i] == 5) {
+                heur += sqrt(pow(((getX(i)) - 2), 2) + pow((getY(i) - 2), 2));
+            }
+            else if (next->data[i] == 6) {
+                heur += sqrt(pow(((getX(i)) - 2), 2) + pow((getY(i) - 3), 2));
+            }
+            else if (next->data[i] == 7) {
+                heur += sqrt(pow(((getX(i)) - 1), 2) + pow((getY(i) - 3), 2));
+            }
+            else if (next->data[i] == 8) {
+                heur += sqrt(pow(((getX(i)) - 2), 2) + pow((getY(i) - 3), 2));
+            }
+        }
+        return heur;
     }
     return 0;
 }
@@ -82,14 +111,18 @@ void Tree::print() {
 
 
 bool Tree::checkDuplicate(vector<int> arr) {
+    int track = 0;
     for (int i = 0; i < copys.size(); i++) {
         for (int j = 0; j < 9; j++) {
             if (copys[i][j] == arr[j]) {
-                return false;
+                track++;
             }
         }
     }
-    return true;
+    if (track == 9) {
+        return true;
+    }
+    return false;
 }
 
 Node* Tree::goUp() {
@@ -101,7 +134,7 @@ Node* Tree::goUp() {
     copys.push_back(temp);
     Node* next = new Node;
     next->parent = current;
-    next->g = current->g + 1;
+    next->g = current->g + current->h + 1;
     next->data = temp;
     next->h = heuristic(next);
     current->child1 = next;
@@ -116,7 +149,7 @@ Node* Tree::goDown() {
     copys.push_back(temp);
     Node* next = new Node;
     next->parent = current;
-    next->g = current->g + 1;
+    next->g = current->g + current->h+1;
     next->data = temp;
     next->h = heuristic(next);
     current->child2 = next;
@@ -131,7 +164,7 @@ Node* Tree::goLeft() {
     copys.push_back(temp);
     Node* next = new Node;
     next->parent = current;
-    next->g = current->g + 1;
+    next->g = current->g + current->h + 1;
     next->data = temp;
     next->h = heuristic(next);
     current->child3 = next;
@@ -146,7 +179,7 @@ Node* Tree::goRight() {
     copys.push_back(temp);
     Node* next = new Node;
     next->parent = current;
-    next->g = current->g + 1;
+    next->g = current->g + current->h + 1;
     next->data = temp;
     next->h = heuristic(next);
     current->child4 = next;
@@ -193,7 +226,7 @@ void Tree::solve8puzzle() {
 
     cout << "Goal Reached!!!"<<endl<< "This search expanded " << nodes <<" total nodes"<< endl;
     cout << "The max number of nodes in queue is "  << search.size() + 1 << endl;
-    cout << "The depth of the goal node is " << current->g + 1 << endl;
+    cout << "The depth of the goal node is " << getDepth() << endl;
 }
 
 void Tree::backtrackFromGoal() {
@@ -225,4 +258,14 @@ void Tree::backtrackPrint(){
         }
     }
     cout << endl;
+}
+
+int Tree::getDepth() {
+    int track=1;
+    current = goalNode;
+    while (current->parent != nullptr) {
+        track++;
+        current = current->parent;
+    }
+    return track;
 }

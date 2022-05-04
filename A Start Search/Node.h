@@ -13,7 +13,7 @@ struct Node{
 	Node* child2;
 	Node* child3;
 	Node* child4;
-	int h; // heuristic
+	double h; // heuristic
 	int g; // pathcost
 	vector<int> data; //array of 9 to represent current state of the 8 puzzle
 };
@@ -49,6 +49,7 @@ public:
     int getX(int a);
     void backtrackFromGoal();//backtracks from goal node then outputs the data from the goal state then the operator from the next set of data
     void backtrackPrint();
+    int getDepth();
 
     //operators
     Node* goUp();

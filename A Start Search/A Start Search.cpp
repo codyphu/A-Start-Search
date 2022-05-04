@@ -36,7 +36,7 @@ int main()
     cout << "If you want to use a preloaded 8 puzzle, input 0. If you want to input your own puzzle input 1."<<endl;
     cin >> inp;
     while (inp < 0 || inp>1) {
-        cout << "Invalid Itput. Please try again.";
+        cout << "Invalid Input. Please try again."<<endl;
         cin >> inp;
     }
     if (inp == 1) {
